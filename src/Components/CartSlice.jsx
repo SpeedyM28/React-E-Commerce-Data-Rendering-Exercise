@@ -1,6 +1,9 @@
 
-const CartSlice = ({
- 
+const CartSlice = createSlice({
+    
 });
 
+const initialState = {
+    cartItems: [],
+};
 
