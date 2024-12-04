@@ -1,13 +1,28 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItemFromCart, clearCart, increaseItemQuantity, decreaseItemQuantity } from './CartSlice'; // Assuming you have action creators for increasing and decreasing item quantity
-import './ShoppingCart.css'; 
+import './ShoppingCart.css';
+import SuperCoin from './SuperCoin';
 
 const ShoppingCart = () => {
     const dispatch = useDispatch();
     const cartItems = useSelector(state => state.cart.cartItems);
     const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
+    const [superCoins, setSuperCoins] = useState(0);
     
+    useEffect(() => {
+        if (totalAmount < 100){
+            setSuperCoins(0);}
+        else{
+            var numof100 = Math.floor(totalAmount / 100);
+            var add_percent = Math.floor(numof100+10);
+            add_percent = add_percent > 40 ? 40 : add_percent;
+            var total_coins = add_percent * (numof100);
+            setSuperCoins(Math.floor(total_coins));
+        }
+    }, [totalAmount]);
+
     const handleRemoveItem = itemId => {
         dispatch(removeItemFromCart(itemId));
     };
@@ -44,6 +59,10 @@ const ShoppingCart = () => {
                 <button className="clear-cart-btn" onClick={handleClearCart}>Clear Cart</button>
             </div>
             <div>{totalAmount ? <div>The total amount is {totalAmount}</div> : ''}</div>
+            <div>
+                <h2>Total Amount: ${totalAmount}</h2>
+                <SuperCoin superCoins={superCoins} />
+                </div>
         </>
     );
 };

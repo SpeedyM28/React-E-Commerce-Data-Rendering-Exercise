@@ -37,6 +37,7 @@ const ProductList = () => {
         ))}
       </ul>
     </div>
+    
   );
 };
 
