@@ -18,7 +18,7 @@ const ProductList = () => {
 
   const handleAddToCart = product => {
     dispatch(addItemToCart(product));
-    setDisabledProducts([...disabledProducts, product.id]);
+    //setDisabledProducts([...disabledProducts, product.id]); commented out because it means you can only add to cart once and never again
   }
 
   return (
@@ -30,7 +30,7 @@ const ProductList = () => {
                 <span>{product.name} - ${product.price}</span>
                 <button className={`add-to-cart-btn ${disabledProducts.includes(product.id) ? 'disabled' : ''}`}
                 onClick={() => handleAddToCart(product)}
-                disabled={disabledProducts.includes(product.id)}>
+                /*disabled={disabledProducts.includes(product.id)}*/ /*again commented out to prevent disabling products*/>
                     Add to Cart
                 </button>
             </li>
